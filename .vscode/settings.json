@@ -1,0 +1,22 @@
+{
+  "editor.fontFamily": "Lucida Console,Consolas,Monaco,Andale Mono,Ubuntu Mono,Menlo, Monaco, 'Courier New', monospace",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
+  },
+  "eslint.format.enable": true,
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "eslint.validate": [
+    "javascript",
+    "vue",
+    "typescript",
+    "html"
+  ],
+  "stylelint.config": null, // 让他加载项目默认的配置，实际不写也行，就怕不小心点出来{}
+  "vetur.format.enable": false,
+  "vetur.validation.template": false,
+  "vetur.validation.style": false,
+}
