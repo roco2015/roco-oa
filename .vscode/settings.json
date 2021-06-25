@@ -1,5 +1,4 @@
 {
-  "editor.fontFamily": "Lucida Console,Consolas,Monaco,Andale Mono,Ubuntu Mono,Menlo, Monaco, 'Courier New', monospace",
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
     "source.fixAll.eslint": true,
