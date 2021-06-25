@@ -8,5 +8,6 @@ import '@/assets/css/main.css';
 const app = createApp(App);
 app.use(router);
 app.use(ajax);
+app.use(ElementPlus);
 
 app.mount('#app');

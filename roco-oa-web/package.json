@@ -8,6 +8,7 @@
     "lintcss": "stylelint '**/*.(css|vue)' --fix"
   },
   "dependencies": {
+    "@types/node": "^15.12.4",
     "autoprefixer": "^10.2.6",
     "axios": "^0.21.1",
     "postcss": "^8.3.0",
