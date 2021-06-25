@@ -1,0 +1,19 @@
+{
+	"folders": [
+    {
+      "path": "roco-oa-web"
+    },
+    {
+      "path": "roco-oa-node"
+    },
+		// {
+		// 	"path": "."
+		// }
+	],
+	"settings": {
+		"stylelint.config": null,
+		"vetur.format.enable": false,
+		"vetur.validation.template": false,
+		"vetur.validation.style": false
+	}
+}
