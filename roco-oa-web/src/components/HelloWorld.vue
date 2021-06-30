@@ -1,83 +1,152 @@
 <template>
-  <h1><slot></slot></h1>
-  <div class="content">
-    <h3>roco搭建自用脚手架</h3>
-    <dl>
-      <dt>内容配置</dt>
-      <dd>1. vue3 + typescript + vite2 + postcss</dd>
-      <dd>2. eslint + stylelint</dd>
+  <v-container>
+    <v-row class="text-center">
+      <v-col cols="12">
+        <v-img
+          :src="logo"
+          class="my-3"
+          contain
+          height="200"
+        />
+      </v-col>
 
-      <dt>vscode需要安装的插件</dt>
-      <dd>1. eslint            publisher:"Dirk Baeumer"</dd>
-      <dd>2. stylelint         publisher:"stylelint"</dd>
-      <dd>3. postcss           自己酌情安装</dd>
+      <v-col class="mb-4">
+        <h1 class="display-2 font-weight-bold mb-3">
+          <div>Welcome to the Vuetify 3 Alpha</div>
+        </h1>
 
-      <dt>安装依赖</dt>
-      <dd>yarn install</dd>
-    </dl>
-    <p>Email: roco2015@163.com</p>
-    <p>Github: roco2015@163.com</p>
-  </div>
-  <button type="button" class="test-btn" @click="count++">count is: {{ count }}</button>
+          <small>Vite Preview</small>
+
+        <p class="subheading font-weight-regular">
+          For help and collaboration with other Vuetify developers,
+          <br>please join our online
+          <a
+            href="https://community.vuetifyjs.com"
+            target="_blank"
+          >Discord Community</a>
+        </p>
+      </v-col>
+
+      <v-col
+        class="mb-5"
+        cols="12"
+      >
+        <h2 class="headline font-weight-bold mb-5">
+          What's next?
+        </h2>
+
+        <v-row justify="center">
+          <a
+            v-for="(next, i) in whatsNext"
+            :key="i"
+            :href="next.href"
+            class="subheading mx-3"
+            target="_blank"
+          >
+            {{ next.text }}
+          </a>
+        </v-row>
+      </v-col>
+
+      <v-col
+        class="mb-5"
+        cols="12"
+      >
+        <h2 class="headline font-weight-bold mb-5">
+          Important Links
+        </h2>
+
+        <v-row justify="center">
+          <a
+            v-for="(link, i) in importantLinks"
+            :key="i"
+            :href="link.href"
+            class="subheading mx-3"
+            target="_blank"
+          >
+            {{ link.text }}
+          </a>
+        </v-row>
+      </v-col>
+
+      <v-col
+        class="mb-5"
+        cols="12"
+      >
+        <h2 class="headline font-weight-bold mb-5">
+          Ecosystem
+        </h2>
+
+        <v-row justify="center">
+          <a
+            v-for="(eco, i) in ecosystem"
+            :key="i"
+            :href="eco.href"
+            class="subheading mx-3"
+            target="_blank"
+          >
+            {{ eco.text }}
+          </a>
+        </v-row>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
-<script lang="ts">
-import { ref, defineComponent } from 'vue';
+<script>
+import logo from '../assets/logo.svg'
 
-export default defineComponent({
+export default {
   name: 'HelloWorld',
-  props: {
-    msg: {
-      type: String,
-      required: true,
-    },
-  },
-  setup: () => {
-    const count = ref(0);
-    return { count };
-  },
-});
+
+  data: () => ({
+    ecosystem: [
+      {
+        text: 'vuetify-loader',
+        href: 'https://github.com/vuetifyjs/vuetify-loader',
+      },
+      {
+        text: 'github',
+        href: 'https://github.com/vuetifyjs/vuetify',
+      },
+      {
+        text: 'awesome-vuetify',
+        href: 'https://github.com/vuetifyjs/awesome-vuetify',
+      },
+    ],
+    importantLinks: [
+      {
+        text: 'Chat',
+        href: 'https://community.vuetifyjs.com',
+      },
+      {
+        text: 'Made with Vuetify',
+        href: 'https://madewithvuejs.com/vuetify',
+      },
+      {
+        text: 'Twitter',
+        href: 'https://twitter.com/vuetifyjs',
+      },
+      {
+        text: 'Articles',
+        href: 'https://medium.com/vuetify',
+      },
+    ],
+    logo,
+    whatsNext: [
+      {
+        text: 'Explore components',
+        href: 'https://vuetifyjs.com',
+      },
+      {
+        text: 'Roadmap',
+        href: 'https://vuetifyjs.com/introduction/roadmap/',
+      },
+      {
+        text: 'Frequently Asked Questions',
+        href: 'https://vuetifyjs.com/getting-started/frequently-asked-questions',
+      },
+    ],
+  }),
+}
 </script>
-
-<style lang="postcss" scoped>
-h1 {
-  width: 600px;
-  margin: 60px auto;
-}
-
-.content {
-  width: 600px;
-  margin: 60px auto;
-
-  dl {
-    margin: 20px 0 60px;
-  }
-
-  dt {
-    margin-top: 10px;
-  }
-
-  dd {
-    padding-left: 20px;
-  }
-}
-
-.test-btn {
-  display: block;
-  margin: 0 auto;
-  padding: 0 20px;
-  border: 1px solid gray;
-  border-radius: 4px;
-  background: none;
-  line-height: 40px;
-  cursor: pointer;
-
-  &:hover {
-    background: rgba(0, 0, 0, 0.1);
-  }
-
-  &:active {
-    background: rgba(0, 0, 0, 0.2);
-  }
-}
-</style>
