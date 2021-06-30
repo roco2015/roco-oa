@@ -19,7 +19,6 @@
     <p>Github: roco2015@163.com</p>
   </div>
   <button type="button" class="test-btn" @click="count++">count is: {{ count }}</button>
-  <el-button>默认按钮</el-button>
 </template>
 
 <script lang="ts">
