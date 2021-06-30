@@ -1,12 +1,12 @@
 const router = [
   {
     path: '/',
-    redirect: '/home',
+    redirect: '/workbench',
   },
   {
-    name: 'home',
-    path: '/home',
-    component: () => import(/* webpackChunkName: 'home' */ '@/views/home/HomeIndex.vue'),
+    name: 'workbench',
+    path: '/workbench',
+    component: () => import(/* webpackChunkName: 'home' */ '@/views/bench/WorkBench.vue'),
   },
 ];
 
