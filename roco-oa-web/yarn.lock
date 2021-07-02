@@ -3330,9 +3330,9 @@ vue@^3.0.5:
     "@vue/shared" "3.1.1"
 
 vuetify@^3.0.0-alpha.0:
-  version "3.0.0-alpha.7"
-  resolved "https://registry.nlark.com/vuetify/download/vuetify-3.0.0-alpha.7.tgz#636101ed7e8191debf2a733589350f21292b9f97"
-  integrity sha1-Y2EB7X6Bkd6/KnM1iTUPISkrn5c=
+  version "3.0.0-alpha.8"
+  resolved "https://registry.nlark.com/vuetify/download/vuetify-3.0.0-alpha.8.tgz#2598aaaa985c41d1f5ab3c965ce6348f01c7505b"
+  integrity sha1-JZiqqphcQdH1qzyWXOY0jwHHUFs=
 
 which-boxed-primitive@^1.0.2:
   version "1.0.2"

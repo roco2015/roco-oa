@@ -1,12 +1,19 @@
+import { workbenchRoutes } from '@/router/workbenchRoutes';
+
 const router = [
   {
-    path: '/',
-    redirect: '/workbench',
+    name: 'login',
+    path: '/login',
+    component: () => import(/* webpackChunkName: 'menu' */ '@/views/login/Login.vue'),
   },
   {
-    name: 'workbench',
-    path: '/workbench',
-    component: () => import(/* webpackChunkName: 'home' */ '@/views/bench/WorkBench.vue'),
+    name: '/',
+    path: '/',
+    redirect: '/workbench',
+    component: () => import(/* webpackChunkName: 'menu' */ '@/layout/CommonLayout.vue'),
+    children: [
+      ...workbenchRoutes,
+    ],
   },
 ];
 
