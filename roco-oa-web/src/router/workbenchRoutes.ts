@@ -31,6 +31,12 @@ const routesWithMenu = [
       },
     ],
   },
+  {
+    name: 'timeline',
+    path: '/timeline',
+    meta: { title: '时间轴' },
+    component: () => import(/* webpackChunkName: 'timeline' */ '@/views/about/Timeline.vue'),
+  },
 ];
 
 interface Menu {

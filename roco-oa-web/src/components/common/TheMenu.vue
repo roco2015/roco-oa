@@ -40,11 +40,13 @@
   </v-list> -->
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
 import { menuObj } from '@/router/workbenchRoutes';
 import { toPage, isEqualToCurrentRoute } from '@/utils/route';
 
-export default {
+export default defineComponent({
+  name: 'TheMenu',
   setup() {
     const menus = menuObj.children;
     const goToPage = (name) => toPage({ name });
@@ -55,9 +57,5 @@ export default {
       isCurrent,
     };
   },
-};
+});
 </script>
-
-<style>
-
-</style>
