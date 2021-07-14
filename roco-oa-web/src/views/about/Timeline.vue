@@ -11,22 +11,12 @@
   </v-timeline>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  name: 'Timeline',
-  setup() {
-    const timelineData = [
-      { id: 3, time: '2021-07-02', text: '初始化路由，菜单' },
-      { id: 2, time: '2021-07-01', text: '安装vuetify' },
-      { id: 1, time: '2021-06-30', text: '初始化项目' },
-    ];
-    return {
-      timelineData,
-    };
-  },
-});
+<script lang="ts" setup>
+const timelineData = [
+  { id: 3, time: '2021-07-02', text: '初始化路由，菜单' },
+  { id: 2, time: '2021-07-01', text: '安装vuetify' },
+  { id: 1, time: '2021-06-30', text: '初始化项目' },
+];
 </script>
 
 <style lang="postcss" scoped></style>

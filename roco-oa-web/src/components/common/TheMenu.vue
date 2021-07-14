@@ -40,22 +40,11 @@
   </v-list> -->
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
 import { menuObj } from '@/router/workbenchRoutes';
 import { toPage, isEqualToCurrentRoute } from '@/utils/route';
 
-export default defineComponent({
-  name: 'TheMenu',
-  setup() {
-    const menus = menuObj.children;
-    const goToPage = (name) => toPage({ name });
-    const isCurrent = (name) => isEqualToCurrentRoute({ name });
-    return {
-      menus,
-      goToPage,
-      isCurrent,
-    };
-  },
-});
+const menus = menuObj.children;
+const goToPage = (name) => toPage({ name });
+const isCurrent = (name) => isEqualToCurrentRoute({ name });
 </script>
