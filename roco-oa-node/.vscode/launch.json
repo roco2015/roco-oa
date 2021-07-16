@@ -1,0 +1,15 @@
+{
+  "version": "0.0.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/app.ts",
+      "name": "roco node",
+      "runtimeExecutable": "nodemon",
+      "restart": true,
+      // "request": "attach",
+      // "processId": "${command:PickProcess}"
+    }
+  ]
+}

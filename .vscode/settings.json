@@ -19,4 +19,5 @@
   "vetur.format.enable": false,
   "vetur.validation.template": false,
   "vetur.validation.style": false,
+  "sqltools.useNodeRuntime": true,
 }

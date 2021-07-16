@@ -14,6 +14,15 @@
 		"stylelint.config": null,
 		"vetur.format.enable": false,
 		"vetur.validation.template": false,
-		"vetur.validation.style": false
+		"vetur.validation.style": false,
+		"sqltools.connections": [
+			{
+				"previewLimit": 50,
+				"driver": "SQLite",
+				"name": "roco",
+				"database": "${workspaceFolder:roco-oa-node}/database/roco.db"
+			}
+		],
+		"sqltools.useNodeRuntime": true
 	}
 }
