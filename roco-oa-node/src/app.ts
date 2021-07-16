@@ -7,9 +7,10 @@ import {User} from './entities/User';
 const app = new Koa();
 
 app.use(async (ctx: any) => {
-  const u = await getManager().find(User)
-  console.log(u)
-  ctx.body = 'Hello World';
+  const u = await getManager().find(User);
+  const a = {b:1}
+  console.log(u);
+  ctx.body = a?.b ? 'xxxx':'Hi Koatty';
 });
 
 app.listen(3001);
