@@ -11,14 +11,21 @@
   "author": "roco",
   "license": "ISC",
   "description": "",
+  "_moduleAliases": {
+    "@": "./src"
+  },
   "devDependencies": {
     "@babel/core": "^7.14.6",
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
     "@babel/plugin-proposal-decorators": "^7.14.5",
     "@babel/preset-env": "^7.14.7",
     "@babel/preset-typescript": "^7.14.5",
     "@types/koa": "^2.13.4",
     "@types/koa-router": "^7.4.4",
     "@types/node": "^16.3.2",
+    "@typescript-eslint/eslint-plugin": "^4.28.4",
+    "@typescript-eslint/parser": "^4.28.4",
+    "eslint": "^7.31.0",
     "nodemon": "^2.0.12",
     "ts-node": "^10.1.0",
     "typescript": "^4.3.5"
@@ -26,6 +33,7 @@
   "dependencies": {
     "koa": "^2.13.1",
     "koa-router": "^10.0.0",
+    "module-alias": "^2.2.2",
     "reflect-metadata": "^0.1.13",
     "sqlite3": "^5.0.2",
     "typeorm": "^0.2.34"
