@@ -1,12 +1,15 @@
-import { controller, get, DarukContext } from 'daruk';
-import {getManager} from 'typeorm';
-import {User} from '@/entities/User';
+import { controller, inject, get, DarukContext } from 'daruk';
+import { UserService } from '@/service/UserService';
 
 @controller()
 export class TestController {
+
+  @inject('UserService')
+  public userService: UserService;
+
   @get('/test')
   public async index(ctx: DarukContext) {
-    const user = await getManager().findOne(User, 1);
+    const user = await this.userService.getOneUser();
     ctx.body = `hello ${user?.user_name}`;
   }
 }
