@@ -33,6 +33,7 @@ module.exports = {
     "@typescript-eslint/no-param-reassign": "off",
     "@typescript-eslint/no-empty-function": "warn",
     "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/ban-types": ["error",
       {
         "types": {
