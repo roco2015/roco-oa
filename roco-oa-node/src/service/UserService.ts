@@ -1,6 +1,6 @@
 import { service } from 'daruk';
-import {getManager} from 'typeorm';
-import {User} from '@/entities/User';
+import { getManager } from 'typeorm';
+import { User } from '@/entities/User';
 
 @service()
 export class UserService {

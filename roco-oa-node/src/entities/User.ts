@@ -1,13 +1,12 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { MyBaseEntity } from './MyBaseEntity';
 
 @Entity()
-export class User {
-  @PrimaryGeneratedColumn()
-  id!: number;
-  @Column()
-  user_name?: string;
-  @Column()
-  create_time!: number;
-  @Column()
-  update_time!: number;
+export class User extends MyBaseEntity {
+
+  @PrimaryGeneratedColumn({name: 'id'})
+  userId: number;
+
+  @Column({name: 'user_name'})
+  userName: string;
 }

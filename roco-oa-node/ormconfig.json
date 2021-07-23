@@ -1,7 +1,6 @@
 {
    "type": "better-sqlite3",
    "database": "database/roco.db",
-   "synchronize": true,
    "logging": false,
    "entities": [
       "src/entities/**/*.ts"

@@ -6,4 +6,9 @@ import '@/config/connection.ts';
   await myapp.loadFile('./controller');
   await myapp.binding();
   myapp.listen(3000);
+
+
+  console.log('--------------------------------------------------------------------');
+  console.log('-----------------------------success--------------------------------');
+  console.log('--------------------------------------------------------------------');
 })();
