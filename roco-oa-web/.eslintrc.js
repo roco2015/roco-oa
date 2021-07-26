@@ -24,5 +24,6 @@ module.exports = {
     'no-plusplus': 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     'no-param-reassign': 'off',
+    'import/prefer-default-export': 'off',
   },
 };

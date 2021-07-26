@@ -10,3 +10,5 @@ export default {
     app.provide('ajax', instance);
   },
 };
+
+export { instance as $http };

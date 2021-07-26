@@ -1,25 +1,22 @@
-import { controller, inject, get, DarukContext } from 'daruk';
+import { controller, inject, get, all, DarukContext } from 'daruk';
 import { UserService } from '@/service/UserService';
-import { DemandService } from '@/service/DemandService';
+import { BaseController } from './BaseController';
 
 @controller()
-export class TestController {
+export class TestController extends BaseController {
 
   @inject('UserService')
   public userService: UserService;
-
-  @inject('DemandService')
-  public demandService: DemandService;
-
-  @get('/test')
+  @all('/test')
   public async index(ctx: DarukContext) {
+    console.log('query', ctx.query.id);
+    console.log('request, body', ctx.request.body);
     const user = await this.userService.getOneUser();
     ctx.body = `hello ${user?.userName}`;
   }
 
   @get('/testAdd')
   public async testAdd(ctx: DarukContext) {
-    await this.demandService.newADemandPeople();
     ctx.body = `done ${Date.now()}`;
   }
 }
