@@ -1,6 +1,8 @@
 import { $http } from '@/plugins/ajax';
+import { getResponseData } from '@/utils/apiUtils';
 
 export const getDemandListApi = async () => {
-  const res = await $http.get('/api/demand/list');
-  return res.data;
+  const response = await $http.get('/api/demand/list');
+  const data = getResponseData(response);
+  return data?.list || [];
 };

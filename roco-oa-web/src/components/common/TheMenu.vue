@@ -42,7 +42,7 @@
 
 <script lang="ts" setup>
 import { menuObj } from '@/router/workbenchRoutes';
-import { toPage, isEqualToCurrentRoute } from '@/utils/route';
+import { toPage, isEqualToCurrentRoute } from '@/utils/routeUtils';
 
 const menus = menuObj.children;
 const goToPage = (name) => toPage({ name });

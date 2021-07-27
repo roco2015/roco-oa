@@ -25,5 +25,11 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     'no-param-reassign': 'off',
     'import/prefer-default-export': 'off',
+
+    // 以下是airbnb-base对js的校验，需要替换成对应ts的
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': 'error',
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': 'error',
   },
 };
