@@ -2,6 +2,7 @@
    "type": "better-sqlite3",
    "database": "database/roco.db",
    "logging": false,
+   "cache": true,
    "entities": [
       "src/entities/**/*.ts"
    ],

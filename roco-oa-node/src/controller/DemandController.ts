@@ -8,12 +8,12 @@ import { BaseController } from './BaseController';
 export class DemandController extends BaseController {
 
   @inject('DemandService')
-  public demandService: DemandService;
+  private demandService: DemandService;
 
   @get('/demand/list')
   public async getDemandList(ctx: DarukContext) {
     const demandName = ctx.query.demandName;
-    const demandList = await this.demandService.getDemandList(demandName);
+    const demandList = await this.demandService.getDemandList({demandName});
     ctx.body = this.ok({list: demandList});
   }
 
@@ -22,6 +22,13 @@ export class DemandController extends BaseController {
     const demand = Demand.create(ctx.request.body as Object);
     const resDemand = await this.demandService.saveDemand(demand);
     ctx.body = this.ok({demandId: resDemand.demandId});
+  }
+
+  @get('/demand/people/list')
+  public async getDemandPeopleList(ctx: DarukContext) {
+    const demandId = ctx.query.demandId;
+    const demandPeopleList = await this.demandService.getDemandPeopleListByDemandId(demandId);
+    ctx.body = this.ok({list: demandPeopleList});
   }
 
   @post('/demand/people/add')

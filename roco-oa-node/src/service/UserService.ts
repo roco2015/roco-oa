@@ -1,12 +1,17 @@
 import { service } from 'daruk';
-import { getManager } from 'typeorm';
 import { User } from '@/entities/User';
+import localCache from '@/config/localCache';
 
 @service()
 export class UserService {
 
-  public async getOneUser() {
-    const user = await getManager().findOne(User, 1);
-    return user;
+  public async getAllUser() {
+    const options = { cache: true };
+    const users: User[] = await User.find(options);
+    localCache.userMap = new Map();
+    users.forEach(user => {
+      localCache.userMap.set(user.userId, user.userName);
+    });
+    return users;
   }
 }

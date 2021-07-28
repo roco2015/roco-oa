@@ -1,19 +1,15 @@
 <template>
-  <v-app class="text-grey-darken-3">
-    <v-app-bar app></v-app-bar>
-
-    <v-navigation-drawer app class="text-grey-darken-3">
-      <the-menu></the-menu>
-    </v-navigation-drawer>
-
-    <v-main>
-      <v-container fluid>
-         <router-view></router-view>
-      </v-container>
-    </v-main>
-
-    <v-footer app></v-footer>
-  </v-app>
+  <el-container class="container">
+    <el-header>Header</el-header>
+    <el-container>
+      <el-aside width="200px">
+        <the-menu></the-menu>
+      </el-aside>
+      <el-main>
+        <router-view></router-view>
+      </el-main>
+    </el-container>
+  </el-container>
 </template>
 
 <script lang="ts">
@@ -25,3 +21,8 @@ export default defineComponent({
   name: 'CommonLayout',
 });
 </script>
+<style lang="postcss" scoped>
+.container {
+  height: 100vh;
+}
+</style>

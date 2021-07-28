@@ -16,8 +16,12 @@ export class DemandPeople extends MyBaseEntity {
   @Column({name: 'user_id'})
   userId: number;
 
+  userName: string;
+
   @Column({name: 'role_id'})
   roleId: number;
+
+  roleName: string;
 
   @Column({name: 'demand_date', nullable: true, default: ''})
   demandDate: string;

@@ -1,14 +1,9 @@
 <template>
-  <v-timeline class="text-info">
-    <v-timeline-item v-for="item of timelineData" :key="item.id" color="pink">
-      <template #opposite>
-        <span>{{item.time}}</span>
-      </template>
-      <v-card class="elevation-2">
-        <v-card-text>{{item.text}}</v-card-text>
-      </v-card>
-    </v-timeline-item>
-  </v-timeline>
+  <el-timeline>
+    <el-timeline-item v-for="item of timelineData" :key="item.id" :timestamp="item.time">
+      {{item.text}}
+    </el-timeline-item>
+  </el-timeline>
 </template>
 
 <script lang="ts" setup>

@@ -1,5 +1,6 @@
 import { DarukServer } from 'daruk';
 import '@/config/connection.ts';
+import init from '@/config/init';
 
 (async () => {
   const myapp = DarukServer();
@@ -8,7 +9,8 @@ import '@/config/connection.ts';
   await myapp.binding();
   myapp.listen(3001);
 
-
+  init();
+  
   console.log('--------------------------------------------------------------------');
   console.log('-----------------------------success--------------------------------');
   console.log('--------------------------------------------------------------------');

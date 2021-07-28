@@ -6,3 +6,9 @@ export const getDemandListApi = async () => {
   const data = getResponseData(response);
   return data?.list || [];
 };
+
+export const getDemandPeopleApi = async (demandId: number) => {
+  const response = await $http.get('/api/demand/people/list', { params: { demandId } });
+  const data = getResponseData(response);
+  return data?.list || [];
+};
