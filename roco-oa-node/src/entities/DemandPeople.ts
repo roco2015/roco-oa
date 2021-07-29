@@ -7,7 +7,7 @@ import { MyBaseEntity } from './MyBaseEntity';
 export class DemandPeople extends MyBaseEntity {
 
   @PrimaryGeneratedColumn({name: 'id'})
-  demandPeopleId: number;
+  demandDeveloperId: number;
 
   @Column({name: 'demand_id'})
   demandId: number;
@@ -23,20 +23,20 @@ export class DemandPeople extends MyBaseEntity {
 
   roleName: string;
 
-  @Column({name: 'demand_date', nullable: true, default: ''})
-  demandDate: string;
-  
   @Column({name: 'develop_date', nullable: true, default: ''})
   developDate: string;
 
   @Column({name: 'debug_date', nullable: true, default: ''})
   debugDate: string;
 
-  @Column({name: 'test_date', nullable: true, default: ''})
-  testDate: string;
+  @Column({name: 'submit_test_date', nullable: true, default: ''})
+  submitTestDate: string;
 
-  @Column({name: 'release_date', nullable: true, default: ''})
-  releaseDate: string;
+  @Column({name: 'start_test_date', nullable: true, default: ''})
+  startTestDate: string;
+
+  @Column({name: 'finish_test_date', nullable: true, default: ''})
+  finishTestDate: string;
 
   @Column({name: 'comment', nullable: true, default: ''})
   comment: string;

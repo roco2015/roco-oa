@@ -31,5 +31,7 @@ module.exports = {
     '@typescript-eslint/no-shadow': 'error',
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'error',
+    'no-undef': 'off',
+    '@typescript-eslint/no-undef': 'off',
   },
 };

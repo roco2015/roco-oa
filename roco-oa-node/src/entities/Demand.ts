@@ -14,6 +14,21 @@ export class Demand extends MyBaseEntity {
   @Column({name: 'wiki_url', nullable: true, default: ''})
   wikiUrl: string;
 
+  @Column({name: 'create_date', nullable: true, default: ''})
+  createDate: string;
+
+  @Column({name: 'review_date', nullable: true, default: ''})
+  reviewDate: string;
+
+  @Column({name: 'plan_online_date', nullable: true, default: ''})
+  planOnlineDate: string;
+
+  @Column({name: 'online_date', nullable: true, default: ''})
+  onlineDate: string;
+
+  @Column({name: 'comment', nullable: true, default: ''})
+  comment: string;
+
   @OneToMany(() => DemandPeople, demandPeople => demandPeople.demand)
   demandPeople: DemandPeople[];
 }

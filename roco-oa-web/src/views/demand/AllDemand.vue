@@ -1,7 +1,6 @@
 <template>
-  <div>
-    {{demandList}}
-    <demand-card></demand-card>
+  <div class="wrapper">
+    <demand-card v-for="demand of demandList" :key="demand.demandId" :demand="demand" class="demand-card"></demand-card>
   </div>
 </template>
 
@@ -12,4 +11,12 @@ import DemandCard from '@/views/demand/components/DemandCard.vue';
 const { demandList } = demand();
 </script>
 
-<style lang="postcss" scoped></style>
+<style lang="postcss" scoped>
+.wrapper {
+  display: flex;
+}
+
+.demand-card {
+  margin: 0 20px 20px 0;
+}
+</style>

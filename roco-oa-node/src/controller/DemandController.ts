@@ -33,8 +33,8 @@ export class DemandController extends BaseController {
 
   @post('/demand/people/add')
   public async saveDemandPeople(ctx: DarukContext) {
-    const demandPeople = DemandPeople.create(ctx.request.body.demandPeople);
-    await this.demandService.saveDemandPeople(demandPeople);
+    const demandDeveloper = DemandPeople.create(ctx.request.body.demandPeople);
+    await this.demandService.saveDemandPeople(demandDeveloper);
     ctx.body = this.ok();
   }
 }
