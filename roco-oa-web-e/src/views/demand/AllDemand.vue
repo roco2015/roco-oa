@@ -1,31 +1,95 @@
 <template>
-  <el-table :data="demandList" row-key="demandId" @expand-change="expandRow">
-    <el-table-column type="expand">
-      <template #default="{row}">
-        <template v-if="row.demandPeople">
-          <p v-for="item of row.demandPeople" :key="item.demandPeopleId">
-            {{item.userId}}
-          </p>
-        </template>
-        <template v-else>loading</template>
-      </template>
-    </el-table-column>
-    <el-table-column prop="demandId" align="center" label="需求ID" width="100px"></el-table-column>
-    <el-table-column prop="demandName" align="center" label="需求名"></el-table-column>
-    <el-table-column prop="wikiUrl" align="center" label="wiki链接"></el-table-column>
-  </el-table>
+  <div class="wrapper">
+    <div v-for="demandListKey of Object.keys(demandLists)" :key="demandListKey"
+      class="lane" :class="{'drag-over': draggingOverDomName === demandListKey}"
+      @dragenter="handleDragEnterEvent(demandListKey)" @dragover="handleDragOverEvent"
+      @drop="handleDropEventWrap(demandListKey)">
+      <h4>
+        <span>{{demandListsDescMap[demandListKey]}}</span>
+        <div class="op">
+          <a @click="showDemandModal">添加</a>
+        </div>
+      </h4>
+      <demand-card v-for="demand of demandLists[demandListKey]" :key="demand.demandId"
+        :demand="demand" draggable="true"
+        @dragstart="handleDragStartEvent(demand, demandListKey)"></demand-card>
+    </div>
+  </div>
+  <new-demand-dialog v-model:visible="demandDialogVisible"></new-demand-dialog>
 </template>
 
 <script lang="ts" setup>
-import demand from '@/composables/demandComposable';
+import DemandCard from '@/views/demand/components/DemandCard.vue';
+import NewDemandDialog from '@/views/demand/components/NewDemandDialog.vue';
 
-const { demandList, setDemandPeopleInDemand } = demand();
+import demandComposable from '@/composables/demand/demandComposable';
+import demandDragableComposable from '@/composables/demand/demandDragableComposable';
+import { ref } from 'vue';
 
-const expandRow = (row) => {
-  if (!row.demandPeople) {
-    setDemandPeopleInDemand(row);
+const { demandLists, getDemandList, demandListsDescMap } = demandComposable();
+const {
+  draggingOverDomName,
+  handleDragStartEvent, handleDragOverEvent, handleDragEnterEvent, handleDropEvent,
+} = demandDragableComposable();
+
+const demandDialogVisible = ref(false);
+const showDemandModal = () => {
+  demandDialogVisible.value = true;
+};
+
+const handleDropEventWrap = async (key) => {
+  const needRefresh = await handleDropEvent(key);
+  if (needRefresh) {
+    getDemandList();
   }
 };
+
 </script>
 
-<style lang="postcss" scoped></style>
+<style lang="postcss" scoped>
+.wrapper {
+  display: grid;
+  grid-gap: 0 10px;
+  grid-template-columns: repeat(5, 1fr);
+  height: 100%;
+}
+
+.lane {
+  transition: background linear 0.2s;
+
+  &.drag-over {
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  h4 {
+    display: flex;
+    margin-bottom: 10px;
+    line-height: 24px;
+
+    span {
+      margin-right: 20px;
+    }
+
+    .op {
+      color: var(--light-blue-lighten-3);
+      font-size: 14px;
+
+      a {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.demand-card {
+  width: 100% !important;
+  min-width: 200px;
+  max-width: 250px;
+  margin-bottom: 10px;
+  cursor: pointer;
+
+  &:active {
+    cursor: move;
+  }
+}
+</style>

@@ -17,9 +17,11 @@ export class DemandController extends BaseController {
     ctx.body = this.ok({list: demandList});
   }
 
-  @post('/demand/add')
+  @post('/demand/save')
   public async addDemand(ctx: DarukContext) {
+    console.log(ctx.request.body);
     const demand = Demand.create(ctx.request.body as Object);
+    console.log(demand);
     const resDemand = await this.demandService.saveDemand(demand);
     ctx.body = this.ok({demandId: resDemand.demandId});
   }
@@ -31,7 +33,7 @@ export class DemandController extends BaseController {
     ctx.body = this.ok({list: demandPeopleList});
   }
 
-  @post('/demand/people/add')
+  @post('/demand/people/save')
   public async saveDemandPeople(ctx: DarukContext) {
     const demandDeveloper = DemandPeople.create(ctx.request.body.demandPeople);
     await this.demandService.saveDemandPeople(demandDeveloper);

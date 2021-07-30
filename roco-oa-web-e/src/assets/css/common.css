@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+a:hover {
+  transition: all linear 0.2s;
+}
+
+::selection {
+  background: var(--cyan-darken-1);
+  color: var(--white);
+}

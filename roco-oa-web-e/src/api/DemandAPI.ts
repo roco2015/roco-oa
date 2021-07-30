@@ -12,3 +12,8 @@ export const getDemandPeopleApi = async (demandId: number) => {
   const data = getResponseData(response);
   return data?.list || [];
 };
+
+export const saveDemandApi = async (demand) => {
+  const response = await $http.post('/api/demand/save', demand);
+  getResponseData(response);
+};
