@@ -1,12 +1,7 @@
 @charset "UTF-8";
 
-a {
-  color: var(--light-blue-darken-3);
-}
-
 a:hover {
   transition: all linear 0.2s;
-  color: var(--pink-accent-1);
 }
 
 ::selection {

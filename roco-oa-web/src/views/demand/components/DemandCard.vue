@@ -1,6 +1,6 @@
 <template>
-  <div class="demand-card">
-    <a class="name" :href="props.demand.wikiUrl" target="_blank">{{props.demand.demandName}}</a>
+  <div class="demand-card" :class="[demand.urgent?'urgent':'', `level-${demand.level}`]">
+    <a class="title" :href="props.demand.wikiUrl" target="_blank">{{props.demand.demandName}}</a>
     <div class="info">
       <p><span>产品: </span><span>{{props.demand.userName}}</span></p>
       <p><span>评审日期: </span><span>{{props.demand.reviewDate}}</span></p>
@@ -19,6 +19,36 @@ const props = defineProps({
 
 <style lang="postcss" scoped>
 .demand-card {
+  &.level-1 {
+    --bg-color-middle: var(--pink-lighten-5);
+    --bg-color-end: var(--red-lighten-3);
+    --corner-shadow-color: var(--pink-lighten-4);
+  }
+
+  &.level-2 {
+    --bg-color-middle: var(--orange-lighten-5);
+    --bg-color-end: var(--amber-lighten-3);
+    --corner-shadow-color: var(--orange-lighten-4);
+  }
+
+  &.level-3 {
+    --bg-color-middle: var(--light-blue-lighten-5);
+    --bg-color-end: var(--blue-lighten-3);
+    --corner-shadow-color: var(--light-blue-lighten-4);
+  }
+
+  &.level-4 {
+    --bg-color-middle: var(--teal-lighten-5);
+    --bg-color-end: var(--cyan-lighten-3);
+    --corner-shadow-color: var(--teal-lighten-4);
+  }
+
+  &.level-5 {
+    --bg-color-middle: var(--light-green-lighten-5);
+    --bg-color-end: var(--green-lighten-3);
+    --corner-shadow-color: var(--light-green-lighten-4);
+  }
+
   --fold-size: 30px;
   --fold-deg: -145deg;
   --fold-corner-rotate-deg: calc(2 * (var(--fold-deg) - 45deg) + 360deg);
@@ -35,10 +65,11 @@ const props = defineProps({
     linear-gradient(
       var(--fold-deg),
       transparent var(--fold-size),
-      var(--cyan-lighten-5) 0,
-      var(--light-blue-lighten-3)
+      var(--bg-color-middle) 0,
+      var(--bg-color-end)
     ) no-repeat;
-  filter: drop-shadow(-4px 4px 4px rgba(0, 0, 0, 0.4));
+  color: var(--grey-darken-1);
+  filter: drop-shadow(2px 4px 6px var(--bg-color-middle));
 
   &::after {
     content: '';
@@ -52,12 +83,33 @@ const props = defineProps({
     border-bottom-left-radius: 4px;
 
     /* background: linear-gradient(var(--fold-corner-deg), transparent 50%, var(--cyan-lighten-5) 0); */
-    box-shadow: -3px 3px 3px var(--cyan-lighten-4);
+    box-shadow: -3px 3px 3px var(--corner-shadow-color);
   }
 
-  .name {
+  &.urgent::before {
+    content: '急';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--deep-orange-accent-1);
+    border-radius: 50%;
+    color: var(--deep-orange-accent-1);
+    font-size: 12px;
+    line-height: 18px;
+    text-align: center;
+  }
+
+  .title {
     display: block;
     margin-bottom: 20px;
+    color: var(--grey-darken-1);
+
+    &:hover {
+      color: var(--bg-color-end);
+      filter: brightness(0.8);
+    }
   }
 
   .info {

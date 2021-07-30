@@ -14,6 +14,18 @@ export class Demand extends MyBaseEntity {
   @Column({name: 'wiki_url', nullable: true, default: ''})
   wikiUrl: string;
 
+  // 1大需求，3中等，5小需求
+  @Column({name: 'level', default: 3})
+  level: number;
+
+  // 0非加急，1加急的
+  @Column({name: 'urgent', default: 0})
+  urgent: number;
+
+  // 10 未评审，20已评审，30开发中，40测试中，50已上线
+  @Column({name: 'status', default: 10})
+  status: number;
+
   @Column({name: 'create_date', nullable: true, default: ''})
   createDate: string;
 
