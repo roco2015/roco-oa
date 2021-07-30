@@ -1,6 +1,9 @@
 <template>
   <div class="demand-card" :class="[demand.urgent?'urgent':'', `level-${demand.level}`]">
-    <a class="title" :href="props.demand.wikiUrl" target="_blank">{{props.demand.demandName}}</a>
+    <div class="title">
+      <a class="wiki" :href="props.demand.wikiUrl" target="_blank">[wiki]</a>
+      <a class="name" :href="props.demand.wikiUrl" target="_blank">{{props.demand.demandName}}</a>
+    </div>
     <div class="info">
       <p><span>产品: </span><span>{{props.demand.userName}}</span></p>
       <p><span>评审日期: </span><span>{{props.demand.reviewDate}}</span></p>
@@ -103,13 +106,29 @@ const props = defineProps({
   }
 
   .title {
-    display: block;
     margin-bottom: 20px;
-    color: var(--grey-darken-1);
 
-    &:hover {
-      color: var(--bg-color-end);
-      filter: brightness(0.8);
+    a {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .wiki {
+      margin-right: 3px;
+      color: var(--white);
+
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+
+    .name {
+      color: var(--grey-darken-1);
+
+      &:hover {
+        color: var(--bg-color-end);
+        filter: brightness(0.8);
+      }
     }
   }
 

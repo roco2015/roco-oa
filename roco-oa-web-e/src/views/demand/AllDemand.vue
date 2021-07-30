@@ -86,10 +86,15 @@ const handleDropEventWrap = async (key) => {
   min-width: 200px;
   max-width: 250px;
   margin-bottom: 10px;
-  cursor: pointer;
+  transition: opacity linear 0.2s;
+  cursor: move;
+
+  &:hover {
+    opacity: 0.9;
+  }
 
   &:active {
-    cursor: move;
+    filter: brightness(1.1);
   }
 }
 </style>
