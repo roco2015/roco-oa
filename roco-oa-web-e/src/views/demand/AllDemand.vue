@@ -1,41 +1,30 @@
 <template>
+  <demand-op-bar></demand-op-bar>
   <div class="wrapper">
     <div v-for="demandListKey of Object.keys(demandLists)" :key="demandListKey"
       class="lane" :class="{'drag-over': draggingOverDomName === demandListKey}"
       @dragenter="handleDragEnterEvent(demandListKey)" @dragover="handleDragOverEvent"
       @drop="handleDropEventWrap(demandListKey)">
-      <h4>
-        <span>{{demandListsDescMap[demandListKey]}}</span>
-        <div class="op">
-          <a @click="showDemandModal">添加</a>
-        </div>
-      </h4>
+      <h4>{{demandListsDescMap[demandListKey]}}</h4>
       <demand-card v-for="demand of demandLists[demandListKey]" :key="demand.demandId"
         :demand="demand" draggable="true"
         @dragstart="handleDragStartEvent(demand, demandListKey)"></demand-card>
     </div>
   </div>
-  <new-demand-dialog v-model:visible="demandDialogVisible"></new-demand-dialog>
 </template>
 
 <script lang="ts" setup>
 import DemandCard from '@/views/demand/components/DemandCard.vue';
-import NewDemandDialog from '@/views/demand/components/NewDemandDialog.vue';
+import DemandOpBar from '@/views/demand/components/DemandOpBar.vue';
 
 import demandComposable from '@/composables/demand/demandComposable';
 import demandDragableComposable from '@/composables/demand/demandDragableComposable';
-import { ref } from 'vue';
 
 const { demandLists, getDemandList, demandListsDescMap } = demandComposable();
 const {
   draggingOverDomName,
   handleDragStartEvent, handleDragOverEvent, handleDragEnterEvent, handleDropEvent,
 } = demandDragableComposable();
-
-const demandDialogVisible = ref(false);
-const showDemandModal = () => {
-  demandDialogVisible.value = true;
-};
 
 const handleDropEventWrap = async (key) => {
   const needRefresh = await handleDropEvent(key);
@@ -62,22 +51,8 @@ const handleDropEventWrap = async (key) => {
   }
 
   h4 {
-    display: flex;
     margin-bottom: 10px;
     line-height: 24px;
-
-    span {
-      margin-right: 20px;
-    }
-
-    .op {
-      color: var(--light-blue-lighten-3);
-      font-size: 14px;
-
-      a {
-        cursor: pointer;
-      }
-    }
   }
 }
 
@@ -91,10 +66,6 @@ const handleDropEventWrap = async (key) => {
 
   &:hover {
     opacity: 0.9;
-  }
-
-  &:active {
-    filter: brightness(1.1);
   }
 }
 </style>

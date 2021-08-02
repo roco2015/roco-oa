@@ -1,7 +1,12 @@
 @charset "UTF-8";
 
+a {
+  color: var(--cyan-accent-4);
+}
+
 a:hover {
   transition: all linear 0.2s;
+  filter: brightness(1.2);
 }
 
 ::selection {

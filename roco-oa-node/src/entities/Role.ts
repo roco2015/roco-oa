@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import { MyBaseEntity } from './MyBaseEntity';
 
 @Entity()
-export class RoleConfig extends MyBaseEntity {
+export class Role extends MyBaseEntity {
 
   @PrimaryGeneratedColumn({name: 'id'})
   roleId: number;

@@ -20,7 +20,7 @@ module.exports = {
   rules: {
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
-    'max-len': ['error', { code: 120, ignoreComments: true, ignoreUrls: true }],
+    'max-len': ['error', { code: 160, ignoreComments: true, ignoreUrls: true }],
     'no-plusplus': 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     'no-param-reassign': 'off',

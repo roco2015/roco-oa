@@ -21,7 +21,6 @@ export class DemandController extends BaseController {
   public async addDemand(ctx: DarukContext) {
     console.log(ctx.request.body);
     const demand = Demand.create(ctx.request.body as Object);
-    console.log(demand);
     const resDemand = await this.demandService.saveDemand(demand);
     ctx.body = this.ok({demandId: resDemand.demandId});
   }

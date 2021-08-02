@@ -1,26 +1,55 @@
 <template>
-  <div class="demand-card" :class="[demand.urgent?'urgent':'', `level-${demand.level}`]">
-    <div class="title">
-      <a class="wiki" :href="props.demand.wikiUrl" target="_blank">[wiki]</a>
-      <a class="name" :href="props.demand.wikiUrl" target="_blank">{{props.demand.demandName}}</a>
+  <div class="demand-card" :class="[demand.urgent?'urgent':'', `level-${demand.level}`, hasWatched?'fold':'unfold']">
+    <p>{{props.demand.demandName}}</p>
+    <div class="sub-title">
+      <a :href="props.demand.wikiUrl" target="_blank">[wiki]</a>
+      <a @click="exposedDetail">[展开详情]</a>
+      <a @click="watchIt">{{hasWatched?'[已关注]':'[关注]'}}</a>
     </div>
     <div class="info">
       <p><span>产品: </span><span>{{props.demand.userName}}</span></p>
       <p><span>评审日期: </span><span>{{props.demand.reviewDate}}</span></p>
       <p><span>计划上线: </span><span>{{props.demand.planOnlineDate}}</span></p>
     </div>
+    <div v-if="hasExposedDetail" class="info">
+      <div v-for="person of demandPeople" :key="person.demandPeopleId" class="demand-people">
+        <p><span>{{person.roleName}}: </span><span>{{person.userName}}</span></p>
+        <p v-if="person.developDate"><span></span><span>开发 {{person.developDate}}</span></p>
+        <p v-if="person.debugDate"><span></span><span>联调 {{person.debugDate}}</span></p>
+        <p v-if="person.submiteTestDate"><span></span><span>提测 {{person.submiteTestDate}}</span></p>
+        <p v-if="person.startTestDate"><span></span><span>开测 {{person.startTestDate}}</span></p>
+        <p v-if="person.finishTestDate"><span></span><span>测完 {{person.finishTestDate}}</span></p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import demandPeopleComposable from '@/composables/demand/demandPeopleComposable';
+import { ref } from 'vue';
+
 const props = defineProps({
   demand: {
     type: Object,
   },
 });
+
+const hasWatched = ref(false);
+const watchIt = () => {
+  hasWatched.value = !hasWatched.value;
+};
+
+const { demandPeople, getDemandPeopleIfEmpty } = demandPeopleComposable();
+const hasExposedDetail = ref(false);
+const exposedDetail = async () => {
+  hasExposedDetail.value = !hasExposedDetail.value;
+  getDemandPeopleIfEmpty(props.demand);
+};
+
 </script>
 
 <style lang="postcss" scoped>
+
 .demand-card {
   &.level-1 {
     --bg-color-middle: var(--pink-lighten-5);
@@ -63,6 +92,8 @@ const props = defineProps({
   position: relative;
   width: 250px;
   padding: 10px;
+  transform-style: preserve-3d;
+  perspective: 1000;
   border-radius: 4px;
   background:
     linear-gradient(
@@ -74,7 +105,7 @@ const props = defineProps({
   color: var(--grey-darken-1);
   filter: drop-shadow(2px 4px 6px var(--bg-color-middle));
 
-  &::after {
+  /* &::after {
     content: '';
     position: absolute;
     top: -16px;
@@ -85,8 +116,24 @@ const props = defineProps({
     transform-origin: 100% 100%;
     border-bottom-left-radius: 4px;
 
-    /* background: linear-gradient(var(--fold-corner-deg), transparent 50%, var(--cyan-lighten-5) 0); */
     box-shadow: -3px 3px 3px var(--corner-shadow-color);
+  } */
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: var(--fold-height);
+    height: var(--fold-width);
+    transition: all 0.2s linear;
+    border-top-right-radius: 4px;
+    background: linear-gradient(var(--fold-deg), var(--bg-color-middle) 50%, transparent 0);
+  }
+
+  &.fold::after {
+    transform: rotate3d(1, 0.7, 0, 180deg);
+    box-shadow: 3px -3px 3px var(--corner-shadow-color);
   }
 
   &.urgent::before {
@@ -105,29 +152,22 @@ const props = defineProps({
     text-align: center;
   }
 
-  .title {
-    margin-bottom: 20px;
+  .sub-title {
+    margin-bottom: 10px;
+    font-size: 14px;
 
     a {
+      color: var(--grey-darken-1);
       text-decoration: underline;
       cursor: pointer;
-    }
-
-    .wiki {
-      margin-right: 3px;
-      color: var(--white);
-
-      &:hover {
-        opacity: 0.5;
-      }
-    }
-
-    .name {
-      color: var(--grey-darken-1);
 
       &:hover {
         color: var(--bg-color-end);
         filter: brightness(0.8);
+      }
+
+      &:not(:last-child) {
+        margin-right: 3px;
       }
     }
   }
@@ -144,6 +184,11 @@ const props = defineProps({
         text-align: right;
       }
     }
+  }
+
+  .demand-people {
+    margin-top: 5px;
+    border-top: 1px dashed var(--grey-darken-1);
   }
 }
 </style>
