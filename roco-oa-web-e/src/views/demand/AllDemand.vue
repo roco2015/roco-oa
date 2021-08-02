@@ -1,5 +1,5 @@
 <template>
-  <demand-op-bar></demand-op-bar>
+  <demand-op-bar @refresh="refresh"></demand-op-bar>
   <div class="wrapper">
     <div v-for="demandListKey of Object.keys(demandLists)" :key="demandListKey"
       class="lane" :class="{'drag-over': draggingOverDomName === demandListKey}"
@@ -33,6 +33,9 @@ const handleDropEventWrap = async (key) => {
   }
 };
 
+const refresh = () => {
+  getDemandList();
+};
 </script>
 
 <style lang="postcss" scoped>

@@ -9,5 +9,6 @@ module.exports = {
     'order/properties-order': [
       sortOrderSmacss()
     ],
+    "selector-pseudo-class-no-unknown": [ true, {"ignorePseudoClasses": ["deep"]} ],
   },
 }

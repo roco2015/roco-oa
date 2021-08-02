@@ -2,6 +2,7 @@
 
 a {
   color: var(--cyan-accent-4);
+  cursor: pointer;
 }
 
 a:hover {

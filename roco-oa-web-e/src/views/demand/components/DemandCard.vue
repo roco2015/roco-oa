@@ -3,7 +3,7 @@
     <p>{{props.demand.demandName}}</p>
     <div class="sub-title">
       <a :href="props.demand.wikiUrl" target="_blank">[wiki]</a>
-      <a @click="exposedDetail">[展开详情]</a>
+      <a @click="exposedDetail">{{hasExposedDetail?'[收起详情]':'[展开详情]'}}</a>
       <a @click="watchIt">{{hasWatched?'[已关注]':'[关注]'}}</a>
     </div>
     <div class="info">
