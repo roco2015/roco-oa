@@ -2,12 +2,13 @@ import { service } from 'daruk';
 import { Demand } from '@/entities/Demand';
 import { DemandPeople } from '@/entities/DemandPeople';
 import { In } from 'typeorm';
-import localCache from '@/config/localCache';
+import localCache from '@/config/LocalCache';
+import { demand } from '@/constant/MessageRequestContentConstant';
 
 @service()
 export class DemandService {
 
-  public async getDemandList ({demandName}: Record<string, unknown>, hasRelations?:boolean) {
+  public async getDemandList ({demandName}: Record<string, unknown> = {}, hasRelations = false) {
     const options: Record<string, any> = { cache: true };
     if (hasRelations) {
       options.relations = ['demandPeople'];
@@ -20,7 +21,12 @@ export class DemandService {
         options.where.demandName =  demandName;
       }
     }
-    const demands = Demand.find(options);
+    const demands = await Demand.find(options);
+    demands.forEach(demand => {
+      demand.demandPeople?.forEach(demandPeople => {
+        this.formatDemandPeople(demandPeople);
+      });
+    });
     return demands;
   }
 

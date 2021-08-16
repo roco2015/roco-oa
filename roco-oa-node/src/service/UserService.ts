@@ -1,6 +1,6 @@
 import { service } from 'daruk';
 import { User } from '@/entities/User';
-import localCache from '@/config/localCache';
+import localCache from '@/config/LocalCache';
 
 @service()
 export class UserService {

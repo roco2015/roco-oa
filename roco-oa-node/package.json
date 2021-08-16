@@ -13,6 +13,7 @@
   "author": "roco2015@163.com",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.1",
     "better-sqlite3": "^7.4.3",
     "daruk": "^2.3.7",
     "ts-node": "^10.1.0",

@@ -13,7 +13,8 @@ export class DemandController extends BaseController {
   @get('/demand/list')
   public async getDemandList(ctx: DarukContext) {
     const demandName = ctx.query.demandName;
-    const demandList = await this.demandService.getDemandList({demandName});
+    const relatetion = Boolean(ctx.query.relatetion);
+    const demandList = await this.demandService.getDemandList({demandName}, relatetion);
     ctx.body = this.ok({list: demandList});
   }
 
