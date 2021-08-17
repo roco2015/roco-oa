@@ -14,4 +14,29 @@ export class UserService {
     });
     return users;
   }
+
+  public async updateUsers(users: User[]) {
+    const existUsers =  await User.find();
+    const existUserMap = new Map<string, User>();
+    existUsers.forEach(existUsers => {
+      existUserMap.set(existUsers.dingtalkId, existUsers);
+    });
+
+    const usersNeedUpdate: User[] = [];
+    users.forEach(user => {
+      const existUser = existUserMap.get(user.dingtalkId);
+      if (!existUser) {
+        usersNeedUpdate.push(user);
+        return;
+      }
+      if (user.userName === existUser.userName) {
+        return;
+      }
+      user.userId = existUser.userId;
+      user.userName = existUser.userName;
+      usersNeedUpdate.push(user);
+    });
+    const res = await User.save(usersNeedUpdate);
+    return res;
+  }
 }

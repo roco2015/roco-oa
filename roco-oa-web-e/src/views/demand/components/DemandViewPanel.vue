@@ -1,5 +1,5 @@
 <template>
-  <demand-view-card v-for="demand of props.demands" :key="demand.demandId" :demand="demand"></demand-view-card>
+  <demand-view-card v-for="demand of (props.demands as any)" :key="demand.demandId" :demand="demand"></demand-view-card>
 </template>
 
 <script lang="ts" setup>

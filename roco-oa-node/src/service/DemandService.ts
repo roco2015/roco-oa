@@ -3,7 +3,6 @@ import { Demand } from '@/entities/Demand';
 import { DemandPeople } from '@/entities/DemandPeople';
 import { In } from 'typeorm';
 import localCache from '@/config/LocalCache';
-import { demand } from '@/constant/MessageRequestContentConstant';
 
 @service()
 export class DemandService {

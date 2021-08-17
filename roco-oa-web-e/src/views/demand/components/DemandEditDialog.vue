@@ -32,23 +32,23 @@
           <div v-for="(person, index) of demand.demandPeople" :key="person.demandPeopleId || index" class="demand-people">
             <el-form-item label="姓名"><el-input v-model="person.userId"></el-input></el-form-item>
             <el-form-item label="职位"><el-input v-model="person.roleId"></el-input></el-form-item>
-            <template v-if="roleId === 3" >
+            <template v-if="person.roleId === 3" >
               <el-form-item label="开始测试时间">
-                <el-date-picker v-model="demand.startTestDate" value-format="YYYY-MM-DD" type="date" placeholder="选择日期"></el-date-picker>
+                <el-date-picker v-model="person.startTestDate" value-format="YYYY-MM-DD" type="date" placeholder="选择日期"></el-date-picker>
               </el-form-item>
               <el-form-item label="完成测试时间">
-                <el-date-picker v-model="demand.finishTestDate" value-format="YYYY-MM-DD" type="date" placeholder="选择日期"></el-date-picker>
+                <el-date-picker v-model="person.finishTestDate" value-format="YYYY-MM-DD" type="date" placeholder="选择日期"></el-date-picker>
               </el-form-item>
             </template>
             <template v-else>
               <el-form-item label="开发时间">
-                <el-date-picker v-model="demand.developDate" value-format="YYYY-MM-DD" type="date" placeholder="选择日期"></el-date-picker>
+                <el-date-picker v-model="person.developDate" value-format="YYYY-MM-DD" type="date" placeholder="选择日期"></el-date-picker>
               </el-form-item>
               <el-form-item label="联调时间">
-                <el-date-picker v-model="demand.debugDate" value-format="YYYY-MM-DD" type="date" placeholder="选择日期"></el-date-picker>
+                <el-date-picker v-model="person.debugDate" value-format="YYYY-MM-DD" type="date" placeholder="选择日期"></el-date-picker>
               </el-form-item>
               <el-form-item label="提测时间">
-                <el-date-picker v-model="demand.submiteTestDate" value-format="YYYY-MM-DD" type="date" placeholder="选择日期"></el-date-picker>
+                <el-date-picker v-model="person.submiteTestDate" value-format="YYYY-MM-DD" type="date" placeholder="选择日期"></el-date-picker>
               </el-form-item>
             </template>
           </div>
@@ -64,7 +64,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, inject } from 'vue';
+import { ref, reactive, inject } from 'vue';
 
 import { saveDemandApi } from '@/api/DemandAPI';
 
@@ -83,23 +83,28 @@ const close = () => {
   $emit('update:visible', false);
 };
 
-const demand = ref({
+const demand = reactive({
+  demandName: '',
+  wikiUrl: '',
   level: 3,
   urgent: 0,
+  reviewDate: '',
+  planOnlineDate: '',
   demandPeople: [],
+  comment: '',
 });
 
 const addPeople = () => {
-  demand.value.demandPeople.push({});
+  demand.demandPeople.push({});
 };
 
 const save = async () => {
   try {
     await formRef.value.validate();
   } catch (err) { return; }
-  await saveDemandApi(demand.value);
+  await saveDemandApi(demand);
   $emit('refresh');
-  $message.success('保存成功');
+  ($message as any).success('保存成功');
   close();
 };
 </script>

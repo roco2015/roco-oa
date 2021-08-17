@@ -12,21 +12,22 @@
 </template>
 
 <script lang="ts" setup>
-import { getDemandPeopleApi } from '@/api/DemandAPI.ts';
-import { ref, toRefs } from 'vue';
+import { getDemandPeopleApi } from '@/api/DemandAPI';
+import { ref } from 'vue';
 
 const props = defineProps({
   demand: {
     type: Object,
   },
 });
-let demandPeople = ref([]);
+const demandPeople = ref([]);
 (async () => {
-  if (props.demand.demandPeople?.length) {
-    demandPeople = toRefs(props.demand.demandPeople);
-  } else {
-    demandPeople.value = await getDemandPeopleApi(props.demand.demandId);
-  }
+  demandPeople.value = await getDemandPeopleApi(props.demand.demandId);
+  // if (props.demand.demandPeople?.length) {
+  //   demandPeople = toRefs(props.demand.demandPeople);
+  // } else {
+  //   demandPeople.value = await getDemandPeopleApi(props.demand.demandId);
+  // }
 })();
 </script>
 

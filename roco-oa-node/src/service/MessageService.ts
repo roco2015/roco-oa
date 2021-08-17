@@ -20,10 +20,20 @@ export class MessageService {
     return this.getMarkdownMessage(markdownContent, '[机器人帮助]');
   }
 
+  public getUpdatePeopleMessage (count) {
+    return this.getTextMessage(`已更新 ${count}人`);
+  }
+  
+  public getCreateDemandMessage () {
+    const btns = [this.getActionCardMessageBtn('点我新增需求', 'http://localhost:3000')];
+    return this.getActionCardMessage('点击下方按钮新增需求', '[新增需求]', btns);
+  }
+
   public async getDemandMessage () {
     const demandList = await this.demandService.getDemandList({demandName: '777羌胡23'}, true);
     const formatContent = this.formatDemandMessageContent(demandList);
-    return this.getActionCardMessage(formatContent, '[需求排期]');
+    const btns = [this.getActionCardMessageBtn('立即编辑', 'http://www.baidu.com')];
+    return this.getActionCardMessage(formatContent, '[需求排期]', btns);
   }
 
   private getTextMessage (content: string) {
@@ -40,19 +50,18 @@ export class MessageService {
     };
   }
 
-  private getActionCardMessage (text: string, title: string) {
+  private getActionCardMessageBtn (title: string, actionURL: string) {
+    return { title, actionURL };
+  }
+
+  private getActionCardMessage (text: string, title: string, btns: Record<string, string>[]) {
     return {
       msgtype: 'actionCard',
       actionCard: {
         title,
         text,
         btnOrientation: '1',
-        btns: [
-          {
-            title: '立即编辑', 
-            actionURL: 'https://www.baidu.com/'
-          }, 
-        ]
+        btns
       },
     };
   }

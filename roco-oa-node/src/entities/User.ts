@@ -9,4 +9,7 @@ export class User extends MyBaseEntity {
 
   @Column({name: 'user_name'})
   userName: string;
+
+  @Column({name: 'dingtalk_id', unique: true})
+  dingtalkId: string;
 }
