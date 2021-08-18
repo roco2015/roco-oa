@@ -13,9 +13,19 @@ export class DemandController extends BaseController {
   @get('/demand/list')
   public async getDemandList(ctx: DarukContext) {
     const demandName = ctx.query.demandName;
+    if (typeof demandName !== 'string') {
+      return this.error400();
+    }
     const relatetion = Boolean(ctx.query.relatetion);
     const demandList = await this.demandService.getDemandList({demandName}, relatetion);
     ctx.body = this.ok({list: demandList});
+  }
+
+  @get('/demand/get')
+  public async getDemand(ctx: DarukContext) {
+    const demandId = ctx.query.demandId;
+    const demand = await this.demandService.getDemand({demandId});
+    ctx.body = this.ok(demand);
   }
 
   @post('/demand/save')

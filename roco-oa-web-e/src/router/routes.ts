@@ -17,9 +17,9 @@ const router = [
     ],
   },
   {
-    name: 'blank',
-    path: '/blank',
-    component: () => import(/* webpackChunkName: 'menu' */ '@/layout/BlankLayout.vue'),
+    name: 'dingtalk',
+    path: '/dingtalk',
+    component: () => import(/* webpackChunkName: 'dingtalk' */ '@/layout/BlankLayout.vue'),
     children: [
       ...blankRoutes,
     ],

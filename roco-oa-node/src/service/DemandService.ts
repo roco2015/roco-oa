@@ -7,26 +7,41 @@ import localCache from '@/config/LocalCache';
 @service()
 export class DemandService {
 
-  public async getDemandList ({demandName}: Record<string, unknown> = {}, hasRelations = false) {
+  public async getDemandList ({userId, demandName, groupId = ''}: Record<string, string|string[]>, hasRelations = false) {
     const options: Record<string, any> = { cache: true };
     if (hasRelations) {
       options.relations = ['demandPeople'];
     }
+    options.where = {};
+    if (userId) {
+      options.where.userId = Array.isArray(userId) ? In(userId) : userId;
+    }
     if (demandName) {
-      options.where = {};
-      if (Array.isArray(demandName)) {
-        options.where.demandName =  In(demandName);
-      } else {
-        options.where.demandName =  demandName;
-      }
+      options.where.demandName = Array.isArray(demandName) ? In(demandName) : demandName;
+    }
+    if (groupId) {
+      options.where.groupId = Array.isArray(groupId) ? In(groupId) : groupId;
     }
     const demands = await Demand.find(options);
-    demands.forEach(demand => {
-      demand.demandPeople?.forEach(demandPeople => {
-        this.formatDemandPeople(demandPeople);
+    console.log(demands);
+    if (hasRelations) {
+      demands.forEach(demand => {
+        demand.demandPeople?.forEach(demandPeople => {
+          this.formatDemandPeople(demandPeople);
+        });
       });
-    });
+    }
     return demands;
+  }
+
+  public async getDemand ({demandId}: Record<string, unknown> = {}) {
+    const options: Record<string, any> = { cache: true };
+    if (demandId) {
+      options.where = {};
+      options.where.demandId =  demandId;
+    }
+    const demand = await Demand.findOne(options);
+    return demand;
   }
 
   public async saveDemand (demand: Demand) {

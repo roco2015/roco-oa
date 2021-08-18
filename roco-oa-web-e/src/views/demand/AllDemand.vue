@@ -17,10 +17,10 @@
 import DemandCard from '@/views/demand/components/DemandCard.vue';
 import DemandOpBar from '@/views/demand/components/DemandOpBar.vue';
 
-import demandComposable from '@/composables/demand/demandComposable';
+import demandListComposable from '@/composables/demand/demandListComposable';
 import demandDragableComposable from '@/composables/demand/demandDragableComposable';
 
-const { demandLists, getDemandList, demandListsDescMap } = demandComposable();
+const { demandLists, getDemandList, demandListsDescMap } = demandListComposable();
 const {
   draggingOverDomName,
   handleDragStartEvent, handleDragOverEvent, handleDragEnterEvent, handleDropEvent,

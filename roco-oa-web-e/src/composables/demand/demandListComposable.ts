@@ -3,13 +3,20 @@ import { onMounted, reactive } from 'vue';
 
 export default function demandListComposable() {
   const demandLists = reactive({
-    all: [],
-    newDemand: [],
-    reviewed: [],
-    inDevelop: [],
-    inTesting: [],
-    online: [],
+    10: [],
+    20: [],
+    30: [],
+    40: [],
+    50: [],
   });
+
+  const demandListsDescMap = {
+    10: '未评审',
+    20: '已评审',
+    30: '开发中',
+    40: '测试中',
+    50: '已上线',
+  };
 
   const getDemandList = async () => {
     const list = await getDemandListApi();
@@ -29,18 +36,18 @@ export default function demandListComposable() {
           break;
       }
     });
-    demandLists.all = list;
-    demandLists.newDemand = newDemand;
-    demandLists.reviewed = reviewed;
-    demandLists.inDevelop = inDevelop;
-    demandLists.inTesting = inTesting;
-    demandLists.online = online;
+    demandLists[10] = newDemand;
+    demandLists[20] = reviewed;
+    demandLists[30] = inDevelop;
+    demandLists[40] = inTesting;
+    demandLists[50] = online;
   };
 
   onMounted(getDemandList);
 
   return {
     demandLists,
+    demandListsDescMap,
     getDemandList,
   };
 }

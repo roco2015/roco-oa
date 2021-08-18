@@ -24,13 +24,17 @@ export class MessageService {
     return this.getTextMessage(`已更新 ${count}人`);
   }
   
-  public getCreateDemandMessage () {
-    const btns = [this.getActionCardMessageBtn('点我新增需求', 'http://localhost:3000')];
+  public getCreateDemandMessage ({groupId = ''}) {
+    let linkUrl = `http://localhost:3007/dingtalk/demand/edit?random=${Date.now()}`;
+    if (groupId) {
+      linkUrl += `&groupId=${groupId}`;
+    }
+    const btns = [this.getActionCardMessageBtn('点我新增需求', linkUrl)];
     return this.getActionCardMessage('点击下方按钮新增需求', '[新增需求]', btns);
   }
 
-  public async getDemandMessage () {
-    const demandList = await this.demandService.getDemandList({demandName: '777羌胡23'}, true);
+  public async getDemandMessage ({userId = '', groupId = ''}) {
+    const demandList = await this.demandService.getDemandList({userId, groupId});
     const formatContent = this.formatDemandMessageContent(demandList);
     const btns = [this.getActionCardMessageBtn('立即编辑', 'http://www.baidu.com')];
     return this.getActionCardMessage(formatContent, '[需求排期]', btns);

@@ -30,12 +30,12 @@
 </template>
 
 <script lang="ts" setup>
-import demandComposable from '@/composables/demandComposable';
+import demandListComposable from '@/composables/demandListComposable';
 import DemandCard from '@/views/demand/components/DemandCard.vue';
 import NewDemandDialog from '@/views/demand/components/NewDemandDialog.vue';
 import { ref } from 'vue';
 
-const { demandLists } = demandComposable();
+const { demandLists } = demandListComposable();
 
 const demandDialogVisible = ref(false);
 const showDemandModal = () => {
