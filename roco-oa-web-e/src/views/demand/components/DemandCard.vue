@@ -41,9 +41,9 @@ const watchIt = () => {
 
 const { demandPeople, getDemandPeopleIfEmpty } = demandPeopleComposable();
 const hasExposedDetail = ref(false);
-const exposedDetail = async () => {
+const exposedDetail = () => {
   hasExposedDetail.value = !hasExposedDetail.value;
-  getDemandPeopleIfEmpty(props.demand);
+  getDemandPeopleIfEmpty(props.demand.demandId);
 };
 
 </script>

@@ -1,4 +1,4 @@
-import { getDemandListApi } from '@/api/DemandAPI';
+import { getDemandListAPI } from '@/api/DemandAPI';
 import { onMounted, reactive } from 'vue';
 
 export default function demandListComposable() {
@@ -19,7 +19,7 @@ export default function demandListComposable() {
   };
 
   const getDemandList = async () => {
-    const list = await getDemandListApi();
+    const list = await getDemandListAPI();
     const newDemand = [];
     const reviewed = [];
     const inDevelop = [];

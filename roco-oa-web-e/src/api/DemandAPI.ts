@@ -1,25 +1,30 @@
 import { $http } from '@/plugins/ajax';
 import { getResponseData } from '@/utils/apiUtils';
 
-export const getDemandListApi = async () => {
+export const getDemandListAPI = async () => {
   const response = await $http.get('/api/demand/list');
   const data = await getResponseData(response);
   return data?.list || [];
 };
 
-export const getDemandPeopleApi = async (demandId: number) => {
+export const getDemandPeopleAPI = async (demandId: number) => {
   const response = await $http.get('/api/demand/people/list', { params: { demandId } });
   const data = await getResponseData(response);
   return data?.list || [];
 };
 
-export const saveDemandApi = async (demand) => {
+export const saveDemandAPI = async (demand) => {
   const response = await $http.post('/api/demand/save', demand);
-  getResponseData(response);
+  return getResponseData(response);
 };
 
-export const getDemandApi = async (demandId) => {
+export const getDemandAPI = async (demandId) => {
   const response = await $http.get('/api/demand/get', { params: { demandId } });
   const data = await getResponseData(response);
   return data;
+};
+
+export const saveDemandPeopleAPI = async (demandPeople) => {
+  const response = await $http.post('/api/demand/people/save', demandPeople);
+  return getResponseData(response);
 };

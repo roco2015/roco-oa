@@ -15,6 +15,6 @@ app.use(router);
 app.use(ajax);
 app.use(store);
 app.use(ElementPlus);
-app.provide('$message', ElMessage);
+app.provide('message', ElMessage);
 
 app.mount('#app');

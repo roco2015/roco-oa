@@ -74,7 +74,7 @@ const props = defineProps({
   },
 });
 const $emit = defineEmits(['update:visible', 'refresh']);
-const $message = inject('$message');
+const message = inject('message');
 const formRef = ref(null);
 const rules = {
   name: { required: true, message: '请填写需求名字', trigger: 'blur' },
@@ -104,7 +104,7 @@ const save = async () => {
   } catch (err) { return; }
   await saveDemandApi(demand);
   $emit('refresh');
-  ($message as any).success('保存成功');
+  (message as any).success('保存成功');
   close();
 };
 </script>

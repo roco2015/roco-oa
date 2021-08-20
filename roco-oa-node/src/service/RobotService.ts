@@ -42,28 +42,28 @@ export class RobotService {
       return;
     }
     const messageContent = ((message?.text as Record<string, unknown>)?.content as string || '')?.trim();
-    let messageResponse;
+    const messageResponses = [];
     switch (true) {
       case help.includes(messageContent):
-        messageResponse = this.messageService.getHelpMessage();
+        messageResponses.push(this.messageService.getHelpMessage());
         break;
       case demand.includes(messageContent):
-        messageResponse = await this.messageService.getDemandMessage({userId: senderStaffId, groupId: conversationId});
+        const demandMessages = await this.messageService.getDemandMessages({userId: senderStaffId, groupId: conversationId});
+        messageResponses.push(...demandMessages);
         break;
       case createDemand.includes(messageContent):
-        messageResponse = this.messageService.getCreateDemandMessage({groupId: conversationId});
+        messageResponses.push(this.messageService.getCreateDemandMessage({groupId: conversationId}));
         break;
       case updateUser.includes(messageContent):
         const users = await this.dingtalkService.getDepartmentUserList();
         const updatedUsers = await this.userService.updateUsers(users);
-        messageResponse = this.messageService.getUpdatePeopleMessage(updatedUsers.length);
+        messageResponses.push(this.messageService.getUpdatePeopleMessage(updatedUsers.length));
         break;
-      default: messageResponse = this.messageService.getHelloMessage(); break;
+      default: messageResponses.push(this.messageService.getHelloMessage()); break;
     }
-    console.log(messageResponse);
-    console.log(messageResponse?.actionCard?.btns[0]);
-    if (messageResponse) {
+    messageResponses.forEach(messageResponse => {
+      console.log(messageResponse);
       this.sendMessage(sessionWebhook, messageResponse);
-    }
+    });
   }
 }

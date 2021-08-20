@@ -1,4 +1,4 @@
-import { saveDemandApi } from '@/api/DemandAPI';
+import { saveDemandAPI } from '@/api/DemandAPI';
 import { ref } from 'vue';
 
 export default function demandDragableComposable() {
@@ -18,7 +18,7 @@ export default function demandDragableComposable() {
       return false;
     }
     draggingDemand.status = Number(status);
-    await saveDemandApi(draggingDemand);
+    await saveDemandAPI(draggingDemand);
     return true;
   };
 

@@ -1,21 +1,45 @@
-import { getDemandPeopleApi } from '@/api/DemandAPI';
+import { getDemandPeopleAPI, saveDemandPeopleAPI } from '@/api/DemandAPI';
 import { ref } from 'vue';
 
 export default function demandPeopleComposable() {
-  const getDemandPeople = (demandId) => getDemandPeopleApi(demandId);
   const demandPeople = ref([]);
+  const originDemandPeople = {
+    demandPeopleId: 0,
+    demandId: 0,
+    userId: '',
+    userName: '',
+    roleId: '',
+    developDate: '',
+    debugDate: '',
+    submitTestDate: '',
+    startTestDate: '',
+    finishTestDate: '',
+    comment: '',
+  };
 
-  const getDemandPeopleIfEmpty = async (demand) => {
-    if (demand.demandPeople?.length) {
-      demandPeople.value = demand.demandPeople;
-    } else {
-      demandPeople.value = await getDemandPeople(demand.demandId);
+  const getDemandPeople = async (demandId) => {
+    demandPeople.value = await getDemandPeopleAPI(demandId);
+  };
+
+  const getDemandPeopleIfEmpty = (demandId) => {
+    if (!demandPeople.value.length) {
+      getDemandPeople(demandId);
     }
+  };
+
+  const addDemandPeople = (addedDemandPeople = {}) => {
+    demandPeople.value.push({ ...originDemandPeople, ...addedDemandPeople });
+  };
+
+  const saveDemandPeople = () => {
+    saveDemandPeopleAPI(demandPeople.value);
   };
 
   return {
     demandPeople,
-    getDemandPeopleIfEmpty,
     getDemandPeople,
+    getDemandPeopleIfEmpty,
+    addDemandPeople,
+    saveDemandPeople,
   };
 }

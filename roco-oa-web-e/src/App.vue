@@ -5,10 +5,13 @@
 </template>
 
 <script lang="ts" setup>
-import messageQueue from '@/composables/messageQueueComposable';
+// import messageQueue from '@/composables/messageQueueComposable';
+import configComposable from '@/composables/configComposable';
 import zhCn from 'element-plus/lib/locale/lang/zh-cn';
 
-messageQueue();
+// messageQueue();
+const { getConfig } = configComposable();
+getConfig();
 </script>
 
 <style>

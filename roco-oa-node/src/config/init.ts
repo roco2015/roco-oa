@@ -7,10 +7,10 @@ export default async () => {
   const entityManager = getManager();
   const users = await entityManager.find(User);
   users.forEach(user => {
-    localCache.userMap.set(user.userId, user.userName);
+    localCache.userObj[user.userId] = user.userName;
   });
   const roles = await entityManager.find(Role);
   roles.forEach(role => {
-    localCache.roleMap.set(role.roleId, role.positionName);
+    localCache.roleObj[role.roleId] = role.positionName;
   });
 };

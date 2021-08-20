@@ -8,9 +8,9 @@ export class UserService {
   public async getAllUser() {
     const options = { cache: true };
     const users: User[] = await User.find(options);
-    localCache.userMap = new Map();
+    localCache.userObj = {};
     users.forEach(user => {
-      localCache.userMap.set(user.userId, user.userName);
+      localCache.userObj[user.userId] = user.userName;
     });
     return users;
   }

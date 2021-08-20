@@ -7,7 +7,7 @@ import { MyBaseEntity } from './MyBaseEntity';
 export class DemandPeople extends MyBaseEntity {
 
   @PrimaryGeneratedColumn({name: 'id'})
-  demandDeveloperId: number;
+  demandPeopleId: number;
 
   @Column({name: 'demand_id'})
   demandId: number;

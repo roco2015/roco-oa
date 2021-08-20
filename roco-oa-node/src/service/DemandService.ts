@@ -67,8 +67,8 @@ export class DemandService {
   }
 
   private formatDemandPeople(demandPeople) {
-    demandPeople.userName = localCache.userMap.get(demandPeople.userId);
-    demandPeople.roleName = localCache.roleMap.get(demandPeople.roleId);
+    demandPeople.userName = localCache.userObj[demandPeople.userId];
+    demandPeople.roleName = localCache.roleObj[demandPeople.roleId];
   }
 
   public async saveDemandPeople (demandPeople: DemandPeople[]) {

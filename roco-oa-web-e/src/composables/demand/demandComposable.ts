@@ -1,9 +1,7 @@
-import { saveDemandApi, getDemandApi } from '@/api/DemandAPI';
-import { ref, inject } from 'vue';
-import { ElMessage } from 'element-plus';
+import { saveDemandAPI, getDemandAPI } from '@/api/DemandAPI';
+import { ref } from 'vue';
 
 export default function demandPeopleComposable() {
-  const $message = inject('$message') as typeof ElMessage;
   const demand = ref({
     groupId: '',
     demandName: '',
@@ -15,16 +13,13 @@ export default function demandPeopleComposable() {
   });
 
   const getDemand = async (demandId) => {
-    const resDemand = await getDemandApi(demandId);
+    const resDemand = await getDemandAPI(demandId);
     if (resDemand) {
       demand.value = resDemand;
     }
   };
 
-  const saveDemand = async () => {
-    await saveDemandApi(demand.value);
-    $message.success('保存成功');
-  };
+  const saveDemand = () => saveDemandAPI(demand.value);
 
   return {
     demand,
