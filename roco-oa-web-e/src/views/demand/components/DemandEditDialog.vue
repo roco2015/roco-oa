@@ -66,7 +66,7 @@
 <script lang="ts" setup>
 import { ref, reactive, inject } from 'vue';
 
-import { saveDemandApi } from '@/api/DemandAPI';
+import { saveDemandAPI } from '@/api/DemandAPI';
 
 const props = defineProps({
   visible: {
@@ -102,7 +102,7 @@ const save = async () => {
   try {
     await formRef.value.validate();
   } catch (err) { return; }
-  await saveDemandApi(demand);
+  await saveDemandAPI(demand);
   $emit('refresh');
   (message as any).success('保存成功');
   close();
