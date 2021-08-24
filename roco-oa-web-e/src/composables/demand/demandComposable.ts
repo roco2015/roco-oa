@@ -1,13 +1,15 @@
 import { saveDemandAPI, getDemandAPI } from '@/api/DemandAPI';
 import { ref } from 'vue';
+import moment from 'moment';
 
 export default function demandPeopleComposable() {
+  const totday = moment().format('YYYY-MM-DD');
   const demand = ref({
     groupId: '',
     demandName: '',
     wikiUrl: '',
-    createDate: '',
-    reviewDate: '',
+    createDate: totday,
+    reviewDate: totday,
     planOnlineDate: '',
     onlineDate: '',
   });

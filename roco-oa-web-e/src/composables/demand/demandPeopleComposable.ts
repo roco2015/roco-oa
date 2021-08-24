@@ -39,6 +39,9 @@ export default function demandPeopleComposable() {
       return demandPerson.userId;
     });
     await saveDemandPeopleAPI(demandPeople.value);
+    if (!deleteDemandPeopleIds.length) {
+      return;
+    }
     await deleteDemandPeopleAPI(deleteDemandPeopleIds);
   };
 

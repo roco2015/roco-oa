@@ -108,6 +108,10 @@ groupId.value = route.query.groupId;
 
 const save = async () => {
   const { demandId } = await saveDemand();
+  if (!demandPeople.value.length) {
+    message.success('保存成功');
+    return;
+  }
   demandPeople.value.forEach((people) => {
     people.demandId = demandId;
   });
