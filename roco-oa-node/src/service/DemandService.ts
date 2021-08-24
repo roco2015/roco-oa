@@ -7,34 +7,46 @@ import localCache from '@/config/LocalCache';
 @service()
 export class DemandService {
 
-  public async getDemandList ({userId, demandName, groupId = ''}: Record<string, string|string[]>, hasRelations = false) {
+  public async getDemandList (
+    {demandName, groupId, status}: {demandName?: string|string[], groupId?: string|string[], status?: number|number[]},
+    needPeople = false
+  ) {
     const options: Record<string, any> = { cache: true };
-    if (hasRelations) {
-      options.relations = ['demandPeople'];
-    }
     options.where = {};
-    if (userId) {
-      options.where.userId = Array.isArray(userId) ? In(userId) : userId;
-    }
     if (demandName) {
       options.where.demandName = Array.isArray(demandName) ? In(demandName) : demandName;
     }
     if (groupId) {
       options.where.groupId = Array.isArray(groupId) ? In(groupId) : groupId;
     }
+    if (status) {
+      options.where.status = Array.isArray(status) ? In(status) : status;
+    }
     const demands = await Demand.find(options);
-    console.log(demands);
-    if (hasRelations) {
+
+    if (needPeople) {
+      const demandIds = demands.map(demand => demand.demandId);
+      const demandPeople = await this.getDemandPeopleListByDemandId(demandIds);
+      const demandMap = new Map<number, Demand>();
       demands.forEach(demand => {
-        demand.demandPeople?.forEach(demandPeople => {
-          this.formatDemandPeople(demandPeople);
-        });
+        demandMap.set(demand.demandId, demand);
+      });
+      demandPeople.forEach (demandPeople => {
+        const demand = demandMap.get(demandPeople.demandId);
+        if (!demand) {
+          return;
+        }
+        if (!demand.demandPeople) {
+          demand.demandPeople = [];
+        }
+        demand.demandPeople.push(demandPeople);
       });
     }
+
     return demands;
   }
 
-  public async getDemand ({demandId}: Record<string, unknown> = {}) {
+  public async getDemand ({demandId}: {demandId: number}) {
     const options: Record<string, any> = { cache: true };
     if (demandId) {
       options.where = {};
@@ -49,7 +61,7 @@ export class DemandService {
     return res;
   }
 
-  public async getDemandPeopleListByDemandId (demandId) {
+  public async getDemandPeopleListByDemandId (demandId: number | number[]) {
     const options: Record<string, any> = { cache: true };
     if (demandId) {
       options.where = {};
@@ -73,6 +85,11 @@ export class DemandService {
 
   public async saveDemandPeople (demandPeople: DemandPeople[]) {
     const res = await DemandPeople.save(demandPeople);
+    return res;
+  }
+
+  public async deleteDemandPeople (demandPeopleIds: number[]) {
+    const res = await DemandPeople.delete(demandPeopleIds);
     return res;
   }
 }

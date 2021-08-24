@@ -28,3 +28,8 @@ export const saveDemandPeopleAPI = async (demandPeople) => {
   const response = await $http.post('/api/demand/people/save', demandPeople);
   return getResponseData(response);
 };
+
+export const deleteDemandPeopleAPI = async (demandPeopleIds: number[]) => {
+  const response = await $http.post('/api/demand/people/delete', { demandPeopleIds });
+  return getResponseData(response);
+};

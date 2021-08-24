@@ -24,12 +24,17 @@
         <el-date-picker v-model="demand.onlineDate" value-format="YYYY-MM-DD" type="date" placeholder="选择日期"></el-date-picker>
       </el-form-item>
       <el-collapse>
-        <el-collapse-item v-for="people of demandPeople" :key="people.demandPeopleId" :title="people.userName">
+        <el-collapse-item v-for="(people, index) of demandPeople" :key="people.demandPeopleId">
+          <template #title>
+            {{people.userName}}<span v-show="people.roleName"> : </span>{{people.roleName}}
+            <template v-if="!people.userName && !people.roleName">点击展开编辑</template>
+            <a class="delete-btn" @click.stop="deleteDemandPeople(index)">删除</a>
+          </template>
           <el-form-item label="姓名">
             <user-select v-model:value="people.userId" @change="({desc}) => {people.userName = desc}"></user-select>
           </el-form-item>
           <el-form-item label="职能">
-            <role-select v-model:value="people.roleId"></role-select>
+            <role-select v-model:value="people.roleId" @change="({desc}) => {people.roleName = desc}"></role-select>
           </el-form-item>
           <!-- 前端后端 -->
           <template v-if="isDeveloper(people.roleId)">
@@ -83,7 +88,7 @@ const rules = {
 };
 const { demand, getDemand, saveDemand } = demandComposable();
 const {
-  demandPeople, getDemandPeople, addDemandPeople, saveDemandPeople,
+  demandPeople, getDemandPeople, addDemandPeople, saveDemandPeople, deleteDemandPeople,
 } = demandPeopleComposable();
 
 const route = useRoute();
@@ -119,5 +124,10 @@ const save = async () => {
   h3 {
     margin-bottom: 10px;
   }
+}
+
+.delete-btn {
+  margin-left: 20px;
+  color: var(--red-accent-1);
 }
 </style>

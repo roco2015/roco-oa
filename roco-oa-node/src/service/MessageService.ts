@@ -34,8 +34,8 @@ export class MessageService {
     return this.getActionCardMessage('点击下方按钮新增需求', '[新增需求]', btns);
   }
 
-  public async getDemandMessages ({userId = '', groupId = ''}) {
-    const demandList = await this.demandService.getDemandList({userId, groupId});
+  public async getDemandMessages ({groupId = ''}) {
+    const demandList = await this.demandService.getDemandList({groupId, status: 20}, true);
     const messages = [];
     demandList.forEach(demand => {
       const formatContent = this.formatDemandMessageContent(demand);

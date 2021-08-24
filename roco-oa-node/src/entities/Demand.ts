@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, Index } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, Index } from 'typeorm';
 import { DemandPeople } from './DemandPeople';
 import { MyBaseEntity } from './MyBaseEntity';
 
@@ -19,7 +19,8 @@ export class Demand extends MyBaseEntity {
   groupId: string;
 
   // 10 未评审，20已评审，30开发中，40测试中，50已上线
-  @Column({name: 'status', default: 10})
+  // 目前只有20，50在用
+  @Column({name: 'status', default: 20})
   status: number;
 
   @Column({name: 'create_date', nullable: true, default: ''})
@@ -36,7 +37,6 @@ export class Demand extends MyBaseEntity {
 
   @Column({name: 'comment', nullable: true, default: ''})
   comment: string;
-
-  @OneToMany(() => DemandPeople, demandPeople => demandPeople.demand)
+  
   demandPeople: DemandPeople[];
 }

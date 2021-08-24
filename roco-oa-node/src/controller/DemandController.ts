@@ -16,14 +16,13 @@ export class DemandController extends BaseController {
     if (typeof demandName !== 'string') {
       return this.error400();
     }
-    const relatetion = Boolean(ctx.query.relatetion);
-    const demandList = await this.demandService.getDemandList({demandName}, relatetion);
+    const demandList = await this.demandService.getDemandList({demandName});
     ctx.body = this.ok({list: demandList});
   }
 
   @get('/demand/get')
   public async getDemand(ctx: DarukContext) {
-    const demandId = ctx.query.demandId;
+    const demandId = Number(ctx.query.demandId);
     const demand = await this.demandService.getDemand({demandId});
     ctx.body = this.ok(demand);
   }
@@ -38,15 +37,26 @@ export class DemandController extends BaseController {
 
   @get('/demand/people/list')
   public async getDemandPeopleList(ctx: DarukContext) {
-    const demandId = ctx.query.demandId;
+    const demandId = Number(ctx.query.demandId);
     const demandPeopleList = await this.demandService.getDemandPeopleListByDemandId(demandId);
     ctx.body = this.ok({list: demandPeopleList});
   }
 
   @post('/demand/people/save')
   public async saveDemandPeople(ctx: DarukContext) {
-    const demandDeveloper = DemandPeople.create(ctx.request.body);
-    await this.demandService.saveDemandPeople(demandDeveloper);
+    const demandPeople = DemandPeople.create(ctx.request.body);
+    await this.demandService.saveDemandPeople(demandPeople);
+    ctx.body = this.ok();
+  }
+
+  @post('/demand/people/delete')
+  public async deleteDemandPeople(ctx: DarukContext) {
+    const demandPeopleIds = ctx.request.body?.demandPeopleIds;
+    if (!demandPeopleIds?.length) {
+      ctx.body = this.error400();
+      return;
+    }
+    await this.demandService.deleteDemandPeople(demandPeopleIds);
     ctx.body = this.ok();
   }
 }

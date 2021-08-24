@@ -48,7 +48,7 @@ export class RobotService {
         messageResponses.push(this.messageService.getHelpMessage());
         break;
       case demand.includes(messageContent):
-        const demandMessages = await this.messageService.getDemandMessages({userId: senderStaffId, groupId: conversationId});
+        const demandMessages = await this.messageService.getDemandMessages({groupId: conversationId});
         messageResponses.push(...demandMessages);
         break;
       case createDemand.includes(messageContent):
@@ -63,6 +63,7 @@ export class RobotService {
     }
     messageResponses.forEach(messageResponse => {
       console.log(messageResponse);
+      console.log(messageResponse?.actionCard?.btns);
       this.sendMessage(sessionWebhook, messageResponse);
     });
   }

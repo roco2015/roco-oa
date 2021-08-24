@@ -1,5 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, Index } from 'typeorm';
-import { Demand } from './Demand';
+import { Entity, Column, PrimaryGeneratedColumn, Index } from 'typeorm';
 import { MyBaseEntity } from './MyBaseEntity';
 
 @Entity()
@@ -40,9 +39,5 @@ export class DemandPeople extends MyBaseEntity {
 
   @Column({name: 'comment', nullable: true, default: ''})
   comment: string;
-
-  @ManyToOne(() => Demand, demand => demand.demandPeople)
-  @JoinColumn({ name: 'demand_id' })
-  demand: Demand;
 
 }

@@ -1,11 +1,11 @@
-import { getDemandPeopleAPI, saveDemandPeopleAPI } from '@/api/DemandAPI';
+import { getDemandPeopleAPI, saveDemandPeopleAPI, deleteDemandPeopleAPI } from '@/api/DemandAPI';
 import { ref } from 'vue';
 
 export default function demandPeopleComposable() {
   const demandPeople = ref([]);
+  const deleteDemandPeopleIds = [];
   const originDemandPeople = {
-    demandPeopleId: 0,
-    demandId: 0,
+    demandId: '',
     userId: '',
     userName: '',
     roleId: '',
@@ -31,8 +31,20 @@ export default function demandPeopleComposable() {
     demandPeople.value.push({ ...originDemandPeople, ...addedDemandPeople });
   };
 
-  const saveDemandPeople = () => {
-    saveDemandPeopleAPI(demandPeople.value);
+  const saveDemandPeople = async () => {
+    demandPeople.value = demandPeople.value.filter((demandPerson) => {
+      if (!demandPerson.userId && demandPerson.demandPeopleId) {
+        deleteDemandPeopleIds.push(demandPerson.demandPeopleId);
+      }
+      return demandPerson.userId;
+    });
+    await saveDemandPeopleAPI(demandPeople.value);
+    await deleteDemandPeopleAPI(deleteDemandPeopleIds);
+  };
+
+  const deleteDemandPeople = (index) => {
+    const deletedDemandPeople = demandPeople.value.splice(index, 1);
+    deleteDemandPeopleIds.push(deletedDemandPeople[0]?.demandPeopleId);
   };
 
   return {
@@ -41,5 +53,6 @@ export default function demandPeopleComposable() {
     getDemandPeopleIfEmpty,
     addDemandPeople,
     saveDemandPeople,
+    deleteDemandPeople,
   };
 }
